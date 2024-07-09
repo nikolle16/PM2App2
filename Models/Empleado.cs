@@ -12,6 +12,6 @@ namespace PM2App2.Models
             public string nombre { get; set; }
             public string apellido { get; set; }
             public string direccion { get; set; }
-            public object foto { get; set; }
+            public string foto { get; set; }
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2App2.View.PageListEmple"
+             xmlns:conver="clr-namespace:PM2App2.Config"
+             Title="PageListEmple">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Crear empleado" Clicked="ToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Button x:Name="btntest" Text="Probar Api" Clicked="btntest_Clicked"/>
+            <CollectionView x:Name="listemple" SelectionMode="Single" SelectionChanged="listemple_SelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Frame HeightRequest="80"                                WidthRequest="80"                                CornerRadius="40"                                HorizontalOptions="Center"                                IsClippedToBounds="True"                                Padding="0"                                BorderColor="Gray"                                Margin="0,0,0,0">                                <Image Grid.Column="0"                                     x:Name="imagen"                                    Source="{Binding foto, Converter={StaticResource BaseArray}}"                                    Aspect="AspectFill"                                      HeightRequest="70"                                    WidthRequest="70"/>
+                            </Frame>
+                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding nombre}"/>
+                                <Label Text="{Binding apellido}"/>
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

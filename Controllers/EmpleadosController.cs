@@ -13,28 +13,72 @@ namespace PM2App2.Controllers
         //Create
         public async static Task<int> Create(Models.Empleado emple)
         {
-            String jsonObject = JsonConvert.SerializeObject(emple);
-            System.Net.Http.StringContent contenido = new StringContent(jsonObject,Encoding.UTF8,"application/json");
-
-            using (HttpClient client = new HttpClient())
+            try
             {
-                HttpResponseMessage response = null;
+                String jsonObject = JsonConvert.SerializeObject(emple);
+                System.Net.Http.StringContent contenido = new StringContent(jsonObject, Encoding.UTF8, "application/json");
 
-                response = await client.PostAsync(Config.Config.EndPointCreate,contenido);
-
-                if (response != null)
+                using (HttpClient client = new HttpClient())
                 {
-                    if (response.IsSuccessStatusCode)
+                    HttpResponseMessage response = null;
+
+                    response = await client.PostAsync(Config.Config.EndPointCreate, contenido);
+
+                    if (response != null)
                     {
-                        var result = response.Content.ReadAsStringAsync().Result;
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var result = response.Content.ReadAsStringAsync().Result;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Ha Ocurrido un Error: {response.ReasonPhrase}");
+                            return -1;
+                        }
                     }
                 }
+                return 1;
             }
-            return 1;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ha Ocurrido un Error: {ex.ToString()}");
+                return -1;
+            }
         }
 
         //Read
+        public async static Task<List<Models.Empleado>> Get()
+        {
+            List<Models.Empleado>emplelist= new List<Models.Empleado>();
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = null;
+                    response = await client.GetAsync(Config.Config.EndPointList);
+                    if (response != null)
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var result = response.Content.ReadAsStringAsync().Result;
+                            try
+                            {
+                                emplelist = JsonConvert.DeserializeObject<List<Models.Empleado>>(result);
+                            }
+                            catch (JsonException jex)
+                            {
 
+                            }
+                        }
+                    }
+                    return emplelist;
+                }
+            }
+            catch(Exception ex) 
+            {
+                return null;
+            }
+        } 
 
         //Update
 
