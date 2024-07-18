@@ -8,8 +8,8 @@
         <ToolbarItem Text="Crear empleado" Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
     <ScrollView>
-        <VerticalStackLayout>
-            <Button x:Name="btntest" Text="Probar Api" Clicked="btntest_Clicked"/>
+        <VerticalStackLayout Padding="20">
+            <!--<Button x:Name="btntest" Text="Probar Api" Clicked="btntest_Clicked"/>-->
             <CollectionView x:Name="listemple" SelectionMode="Single" SelectionChanged="listemple_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
