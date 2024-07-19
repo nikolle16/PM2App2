@@ -9,25 +9,44 @@
     </ContentPage.ToolbarItems>
     <ScrollView>
         <VerticalStackLayout Padding="20">
-            <!--<Button x:Name="btntest" Text="Probar Api" Clicked="btntest_Clicked"/>-->
             <CollectionView x:Name="listemple" SelectionMode="Single" SelectionChanged="listemple_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Frame HeightRequest="80"                                WidthRequest="80"                                CornerRadius="40"                                HorizontalOptions="Center"                                IsClippedToBounds="True"                                Padding="0"                                BorderColor="Gray"                                Margin="0,0,0,0">                                <Image Grid.Column="0"                                     x:Name="imagen"                                    Source="{Binding foto, Converter={StaticResource BaseArray}}"                                    Aspect="AspectFill"                                      HeightRequest="70"                                    WidthRequest="70"/>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem
+                                        Text="Eliminar"
+                                        BackgroundColor="#E3C9DF"
+                                        Command="{Binding BindingContext.DeleteCommand, Source={x:Reference collectionView}}"
+                                        CommandParameter="{Binding .}" 
+                                        Clicked="Eliminar_Clicked"/>
+                                    <SwipeItem
+                                        Text="Actualizar" 
+                                        BackgroundColor="#E6E1EF"
+                                        Command="{Binding BindingContext.UpdateCommand, Source={x:Reference collectionView}}"
+                                        CommandParameter="{Binding .}" 
+                                        Clicked="Actualizar_Clicked"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Frame>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Frame HeightRequest="80"                                        WidthRequest="80"                                        CornerRadius="40"                                        HorizontalOptions="Center"                                        IsClippedToBounds="True"                                        Padding="0"                                        BorderColor="Gray"                                        Margin="0,0,0,0">                                        <Image Grid.Column="0"                                             x:Name="imagen"                                            Source="{Binding foto, Converter={StaticResource BaseArray}}"                                            Aspect="AspectFill"                                              HeightRequest="70"                                            WidthRequest="70"/>
+                                    </Frame>
+                                    <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label Text="{Binding nombre}"/>
+                                        <Label Text="{Binding apellido}"/>
+                                    </StackLayout>
+                                </Grid>
                             </Frame>
-                            <StackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label Text="{Binding nombre}"/>
-                                <Label Text="{Binding apellido}"/>
-                            </StackLayout>
-                        </Grid>
+                        </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
